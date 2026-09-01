@@ -1,0 +1,4 @@
+MAE=6.507
+RMSE=7.752
+R2=0.866
+Test samples=20

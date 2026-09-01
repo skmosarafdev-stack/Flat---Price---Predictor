@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FlatPrice AI</title><link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"></head><body>
+<header><b>🏠 FlatPrice AI</b><nav><a href="#predict">Predict</a><a href="#about">About</a></nav></header>
+<section class="hero"><div><small>MACHINE LEARNING PROJECT</small><h1>Predict the selling price of a flat.</h1><p>Enter property characteristics and get an AI-based estimate.</p><a class="btn" href="#predict">Start Prediction</a></div><div class="card"><strong>100</strong><span>Training records</span><strong>AI PRICE</strong><span>Data-driven estimate</span></div></section>
+<section id="predict" class="panel"><h2>Property Details</h2><form method="post"><div class="grid">
+<label>Area (sq.ft)<input name="area" type="number" min="300" required></label>
+<label>Facing<select name="facing"><option>North</option><option>South</option><option>East</option><option>West</option></select></label>
+<label>Floor Number<input name="floor" type="number" min="1" required></label>
+<label>Car Parking (sq.ft)<input name="parking" type="number" min="0" required></label>
+<label>Bedrooms<select name="bedrooms"><option>1</option><option>2</option><option>3</option><option>4</option></select></label></div><button class="btn">Predict Selling Price</button></form>
+{% if prediction is not none %}<div class="result">Estimated Selling Price<h3>₹ {{ "%.2f"|format(prediction) }} Lakhs</h3></div>{% endif %}{% if error %}<p>{{error}}</p>{% endif %}</section>
+<section id="about" class="panel"><h2>How it works</h2><p>Input → Preprocessing → Random Forest Model → Predicted Price</p></section><footer>AI-Based Flat Price Prediction System • Academic Project</footer></body></html>
