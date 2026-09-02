@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
-import pickle
+import pickle import joblib
 import pandas as pd
 import os
 
 app = Flask(__name__)
 
 # Model load
-with open('mode1/model.pkl', 'rb') as f:
+model = joblib.load('model/flat_price_model.joblib')
     model = pickle.load(f)
 
 @app.route('/', methods=['GET', 'POST'])
