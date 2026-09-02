@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><title>Batch 50</title></head>
+<body>
+<h2>Predict 50 Flats at Once</h2>
+<form method="post" enctype="multipart/form-data">
+<input type="file" name="file" accept=".csv" required>
+<button type="submit">Upload & Predict</button>
+</form>
+<a href="/">Back to Single</a>
+{% if results %}
+<table border="1" cellpadding="8">
+<tr><th>Area</th><th>Facing</th><th>Floor</th><th>Parking</th><th>Bed</th><th>Price</th></tr>
+{% for r in results %}
+<tr><td>{{r.Area_sqft}}</td><td>{{r.Facing}}</td><td>{{r.Floor}}</td><td>{{r.Parking_sqft}}</td><td>{{r.Bedrooms}}</td><td><b>{{r.Predicted_Price_Lakhs}}</b></td></tr>
+{% endfor %}
+</table>
+{% endif %}
+{% if error %}<p style="color:red">{{error}}</p>{% endif %}
+</body></html>
