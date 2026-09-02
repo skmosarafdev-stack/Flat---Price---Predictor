@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import joblib
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -18,15 +19,15 @@ def home():
             parking = float(request.form.get('parking'))
             bedrooms = int(request.form.get('bedrooms'))
 
-            facing_map = {'North':0, 'South':1, 'East':2, 'West':3}
-            facing_val = facing_map.get(facing, 0)
+            # Model je column name e train hoyeche sei name e DataFrame
+            data = pd.DataFrame([[area, facing, floor, parking, bedrooms]],
+                                columns=['Area', 'Facing', 'Floor_No', 'Car_Parking', 'Bedrooms'])
 
-            data = [[area, facing_val, floor, parking, bedrooms]]
             pred = model.predict(data)[0]
-            prediction = float(pred) # sudhu number pathabo, Lakh html e add hobe
+            prediction = round(float(pred), 2)
+
         except Exception as e:
             error = str(e)
-            print(f"Error: {e}")
 
     return render_template('index.html', prediction=prediction, error=error)
 
