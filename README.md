@@ -5,7 +5,7 @@ A machine learning–powered web application that estimates residential flat pri
 🚀 Live Application
 
 🌐 Live Website:
-https://flat-price-predictor-zfkq.onrender.com
+https://flat-price-predictor-mxgw.onrender.com
 
 ---
 
@@ -88,7 +88,7 @@ These metrics indicate that the trained model performs strongly on the available
 
 - Python
 - Flask
-- Scikit-learn
+- Scikit-learn ==1.8.0
 - Pandas
 - NumPy
 - HTML
