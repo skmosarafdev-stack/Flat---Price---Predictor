@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request
 import joblib
 import pandas as pd
-import os
 
 app = Flask(__name__)
-
 model = joblib.load('model/flat_price_model.joblib')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,16 +17,10 @@ def home():
             parking = float(request.form.get('parking'))
             bedrooms = int(request.form.get('bedrooms'))
 
-            # Model je column name e train hoyeche sei name e DataFrame
-           data = pd.DataFrame([[area, facing, floor, parking, bedrooms]],
-                    columns=['Area_sqft', 'Facing', 'Floor', 'Parking_sqft', 'Bedrooms'])
+            data = pd.DataFrame([[area, facing, floor, parking, bedrooms]], columns=['Area_sqft', 'Facing', 'Floor', 'Parking_sqft', 'Bedrooms'])
             pred = model.predict(data)[0]
             prediction = round(float(pred), 2)
 
         except Exception as e:
             error = str(e)
-
     return render_template('index.html', prediction=prediction, error=error)
-
-if __name__ == '__main__':
-    app.run(debug=True)
