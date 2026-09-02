@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import pickle import joblib
+import joblib
 import pandas as pd
 import os
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Model load
 model = joblib.load('model/flat_price_model.joblib')
-model = pickle.load(f)
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     prediction = None
@@ -24,28 +24,9 @@ def home():
 
         data = [[area, facing_val, floor, parking, bedrooms]]
         pred = model.predict(data)[0]
-        prediction = f"{pred:,.2f} Lakh"
+        prediction = f"{pred:.2f} Lakh"
 
     return render_template('index.html', prediction=prediction)
 
-@app.route('/batch', methods=['GET', 'POST'])
-def batch():
-    results = None
-    if request.method == 'POST':
-        file = request.files['file']
-        if file:
-            df = pd.read_csv(file)
-            # Encode Facing if needed
-            if 'Facing' in df.columns and df['Facing'].dtype == 'object':
-                facing_map = {'North':0, 'South':1, 'East':2, 'West':3}
-                df['Facing'] = df['Facing'].map(facing_map)
-
-            preds = model.predict(df)
-            df['Predicted_Price_Lakh'] = preds
-            results = df.to_html(classes='table table-striped', index=False)
-
-    return render_template('batch.html', results=results)
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
