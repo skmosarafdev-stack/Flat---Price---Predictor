@@ -7,8 +7,7 @@ app = Flask(__name__)
 
 # Model load
 model = joblib.load('model/flat_price_model.joblib')
-    model = pickle.load(f)
-
+model = pickle.load(f)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     prediction = None
