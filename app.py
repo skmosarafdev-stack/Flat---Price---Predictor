@@ -20,9 +20,8 @@ def home():
             bedrooms = int(request.form.get('bedrooms'))
 
             # Model je column name e train hoyeche sei name e DataFrame
-            data = pd.DataFrame([[area, facing, floor, parking, bedrooms]],
-                                columns=['Area', 'Facing', 'Floor_No', 'Car_Parking', 'Bedrooms'])
-
+           data = pd.DataFrame([[area, facing, floor, parking, bedrooms]],
+                    columns=['Area_sqft', 'Facing', 'Floor', 'Parking_sqft', 'Bedrooms'])
             pred = model.predict(data)[0]
             prediction = round(float(pred), 2)
 
